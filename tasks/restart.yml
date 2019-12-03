@@ -1,0 +1,12 @@
+---
+- name: Modprobe wireguard
+  modprobe:
+    name: wireguard
+    state: present
+
+- name: Reload network for wireguard
+  service:
+    name: systemd-networkd
+    daemon_reload: yes
+    state: started
+  when: boot_via == 'systemd'

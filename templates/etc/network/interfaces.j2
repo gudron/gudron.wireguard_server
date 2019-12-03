@@ -1,0 +1,7 @@
+auto {{ interface_name }}
+iface {{ interface_name }} inet static
+    address {{ server_params.address }}
+    netmask {{ server_params.mask }}
+    pre-up ip link add {{ interface_name }} type wireguard
+    pre-up wg setconf {{ interface_name }} /etc/wireguard/{{ interface_name }}.conf
+    post-down ip link del {{ interface_name }}

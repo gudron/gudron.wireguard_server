@@ -1,0 +1,8 @@
+---
+add_repository_module: apt_repository
+
+packages: 
+  - wireguard
+  - wireguard-dkms
+
+repository_name: ppa:wireguard/wireguard

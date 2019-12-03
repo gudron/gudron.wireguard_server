@@ -1,0 +1,18 @@
+---
+boot_via: systemd
+
+interface_name: wg0
+
+server_params:
+  private_key: /path/to/private/key
+  address: 10.8.0.1
+  mask: 255.255.255.0
+  port: 51820
+  save_config: true
+
+peer_params:
+  - public_key: /path/to/public/key
+    preshared_key: /path/to/preshared/key
+    allowed_ips:
+      - address: 10.8.0.2
+        mask: 255.255.255.0

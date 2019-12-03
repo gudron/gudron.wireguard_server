@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+
+[Match]
+Name = {{ interface_name }}
+
+[Network]
+Address = {{ host_mask | ipaddr('network/prefix') }}

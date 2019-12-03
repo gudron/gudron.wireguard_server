@@ -1,0 +1,17 @@
+- name: Set host_mask variable
+  set_fact:
+    host_mask: "{{ server_params.address }}/{{ server_params.mask }}"
+
+- name: Inlcude tasks
+  include_tasks: create_config/create_config.yml
+  when: boot_via == 'manual'
+
+- name: Inlcude tasks
+  include_tasks: create_config/systemd.yml
+  when: boot_via == 'systemd'
+
+- name: Inlcude tasks
+  include_tasks: create_config/interfaces.yml
+  when: 
+    - boot_via == 'interfaces'
+    - ansible_distribution in ['Debian', 'Ubuntu'] 

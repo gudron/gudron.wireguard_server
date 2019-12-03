@@ -1,0 +1,25 @@
+galaxy_info:
+  author: Alex V Kotelnikov 
+  description: Role install wireguad and create config
+  license: Apache
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - 18.04
+        - 16.04
+    - name: Debian
+      versions:
+        - 8.0
+        - 9.0  
+
+  galaxy_tags:
+    - wireguard
+    - wireguard server config
+    - wireguard vpn
+    - vpn
+
+allow_duplicates: false    
+dependencies: []

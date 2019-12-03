@@ -1,0 +1,6 @@
+---
+- name: "Prepare wireguard interface {{ interface_name}} config file"
+  template:
+    src: "templates/etc/wireguard/interface.conf.j2"
+    dest: "/etc/wireguard/{{ interface_name}}.conf"
+    mode: "0644"

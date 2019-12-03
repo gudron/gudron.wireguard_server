@@ -1,0 +1,12 @@
+- name: Inlcude tasks
+  include_tasks: create_config.yml
+
+- name: Create network interfaces file
+  blockinfile:
+    content: "{{ lookup('template', 'templates/etc/network/interfaces.j2') }}"
+    dest: "/etc/network/interfaces"
+    state: present
+    marker: "# ANSIBLE MAGED BLOCK {mark}"
+    marker_begin: "# BEGIN CONFIG {{ interface_name }}"
+    marker_end: "# END CONFIG {{ interface_name }}"
+    backup: yes

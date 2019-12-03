@@ -1,0 +1,9 @@
+---
+add_repository_module: apt_repository
+
+packages: 
+  # - "linux-headers-{{ ansible_kernel }}"
+  - wireguard
+  - wireguard-dkms
+
+repository_name: deb http://deb.debian.org/debian/ unstable main
