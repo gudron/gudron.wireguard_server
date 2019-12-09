@@ -23,7 +23,7 @@ ansible-galaxy install -p roles -r requirements.yml
 Example Playbook
 ----------------
 
-    - hosts: example_vpm_server
+    - hosts: example_vpn_server
       any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
       gather_facts: yes
 
