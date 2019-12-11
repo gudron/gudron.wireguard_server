@@ -42,6 +42,15 @@ Role Variables
     * `port: string` 
       Wireguard server port
 
+    * `public_key: string` 
+      Public key path.
+
+    * `private_key: string` 
+      Private key path.
+
+    * `preshared_key: string` 
+      Public key path.
+
   * `peer_params: list` 
     Parameters of wireguard server.
     
