@@ -20,6 +20,48 @@ Install roles via **ansible-galaxy** tool.
 ansible-galaxy install -p roles -r requirements.yml
 ```
 
+Role Variables
+--------------
+
+### General variables
+  * `boot_via: string`
+    Startup wireguard via init system. Supported `systemd`, `interfaces`, `manual`
+    
+  * `interface_name: string` 
+    The dictionary with wireguard network interfaces. Like `wg0`, `wg1`.
+
+  * `server_params: dict` 
+    Parameters of wireguard server.
+    
+    * `address: string` 
+      Domain name or IP address of wireguard server.
+
+    * `mask: string` 
+      Peer IP-mask. In full-notation like `255.255.255.0`.
+
+    * `port: string` 
+      Wireguard server port
+
+  * `peer_params: list` 
+    Parameters of wireguard server.
+    
+    * `address: string` 
+      Peer IP address
+
+    * `public_key: string` 
+      Public key path.
+
+    * `preshared_key: string` 
+      Public key path.
+
+    * `allowed_ips: list`
+      List of peers address parameters
+
+      * `address: string`
+        Peer IP-address
+
+  Full example: [defaults/main.yml](defaults/main.yml).
+
 Example Playbook
 ----------------
 
@@ -44,13 +86,11 @@ Example Playbook
                 preshared_key: /example/project/wireguard/secrets/example_client_1/preshared.key
                 allowed_ips:
                   - address: 172.16.0.3
-                    mask: 255.255.255.0
 
               - public_key: /example/project/wireguard/secrets/example_client_2/public.key
                 preshared_key: /example/project/wireguard/secrets/example_client_2/preshared.key
                 allowed_ips:
                   - address: 172.16.0.4
-                    mask: 255.255.255.0
 
 License
 -------
