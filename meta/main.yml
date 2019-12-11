@@ -1,7 +1,7 @@
 galaxy_info:
-  author: Alex V Kotelnikov 
-  description: Role install wireguad and create config
-  license: Apache
+  author: Alex V Kotelnikov
+  description: Ansible role for install wireguad and create config
+  license: Apache 2.0
 
   min_ansible_version: 2.4
 
@@ -13,7 +13,7 @@ galaxy_info:
     - name: Debian
       versions:
         - 8.0
-        - 9.0  
+        - 9.0
 
   galaxy_tags:
     - wireguard
@@ -21,5 +21,5 @@ galaxy_info:
     - wireguard vpn
     - vpn
 
-allow_duplicates: false    
+allow_duplicates: False
 dependencies: []

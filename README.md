@@ -1,38 +1,107 @@
-Role Name
-=========
+gudron.wireguard_server
+=======================
 
-A brief description of the role goes here.
+Ansible role for install wireguad vpn server and create config files. 
 
-Requirements
-------------
+Instalation
+-----------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Add **gudron.shells_preparer** role to your *requirements* file.
+
+```yaml
+  - src: git@github.com:gudron/gudron.wireguard_server.git
+    scm: git
+    version: master
+```
+
+Install roles via **ansible-galaxy** tool.
+
+```bash
+ansible-galaxy install -p roles -r requirements.yml
+```
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### General variables
+  * `boot_via: string`
+    Startup wireguard via init system. Supported `systemd`, `interfaces`, `manual`
+    
+  * `interface_name: string` 
+    The dictionary with wireguard network interfaces. Like `wg0`, `wg1`.
 
-Dependencies
-------------
+  * `server_params: dict` 
+    Parameters of wireguard server.
+    
+    * `address: string` 
+      Domain name or IP address of wireguard server.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+    * `mask: string` 
+      Peer IP-mask. In full-notation like `255.255.255.0`.
+
+    * `port: string` 
+      Wireguard server port
+
+    * `public_key: string` 
+      Public key path.
+
+    * `private_key: string` 
+      Private key path.
+
+    * `preshared_key: string` 
+      Public key path.
+
+  * `peer_params: list` 
+    Parameters of wireguard server.
+    
+    * `address: string` 
+      Peer IP address
+
+    * `public_key: string` 
+      Public key path.
+
+    * `preshared_key: string` 
+      Public key path.
+
+    * `allowed_ips: list`
+      List of peers address parameters
+
+      * `address: string`
+        Peer IP-address
+
+  Full example: [defaults/main.yml](defaults/main.yml).
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+    - hosts: example_vpn_server
+      any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+      gather_facts: yes
 
-    - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+        - name: gudron.wireguard_server
+          vars: 
+            boot_via: systemd
+            interfaces_name: wg0
+            server_params: 
+              address: 172.16.0.1
+              mask: 255.255.255.0
+              port: 51820
+              private_key: /example/project/wireguard/secrets/server/private.key
+              public_key: /example/project/wireguard/secrets/server/public.key
+              preshared_key: /example/project/wireguard/secrets/server/preshared.key
+            peer_params: 
+              - public_key: /example/project/wireguard/secrets/example_client_1/public.key
+                preshared_key: /example/project/wireguard/secrets/example_client_1/preshared.key
+                allowed_ips:
+                  - address: 172.16.0.3
+
+              - public_key: /example/project/wireguard/secrets/example_client_2/public.key
+                preshared_key: /example/project/wireguard/secrets/example_client_2/preshared.key
+                allowed_ips:
+                  - address: 172.16.0.4
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Apache 2.0
